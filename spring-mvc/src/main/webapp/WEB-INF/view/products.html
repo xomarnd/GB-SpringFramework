@@ -1,0 +1,26 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Product list</h1>
+
+<a th:href="@{/product/form}">Create product</a>
+
+<table>
+    <tr>
+        <p>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Cost</th>
+        </p>
+    </tr>
+
+    <tr th:each="product : ${products}">
+       <p>
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.title}">FN </td>
+        <td th:text="${product.cost}">LN </td>
+        </p>
+    </tr>
+</table>
+
+</body>
+</html>
