@@ -1,5 +1,8 @@
+
 package ru.geekbrains.server;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.geekbrains.client.AuthException;
 import ru.geekbrains.client.TextMessage;
 import ru.geekbrains.server.auth.AuthService;
@@ -21,36 +24,36 @@ import static ru.geekbrains.client.MessagePatterns.AUTH_SUCCESS_RESPONSE;
 
 public class ChatServer {
 
+    @Autowired
     private AuthService authService;
     private Map<String, ClientHandler> clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
-    private static String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static void main(String[] args) {
-        AuthService authService;
 
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://10.10.1.7:3306/kek" + timeZone,
-                    "kek", "keker");
-            UserRepository userRepository = new UserRepository(conn);
-            if (userRepository.getAllUsers().size() == 0) {
-                userRepository.insert(new User(-1, "ivan", "123"));
-                userRepository.insert(new User(-1, "petr", "345"));
-                userRepository.insert(new User(-1, "julia", "789"));
-            }
-            authService = new AuthServiceJdbcImpl(userRepository);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
+//    public static void main(String[] args) {
+//        AuthService authService;
+//        try {
+//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/network_chat?serverTimezone=Europe/Moscow&useSSL=false",
+//                    "root", "Ltnjxrf1");
+//            UserRepository userRepository = new UserRepository(conn);
+//            if (userRepository.getAllUsers().size() == 0) {
+//                userRepository.insert(new User(-1, "ivan", "123"));
+//                userRepository.insert(new User(-1, "petr", "345"));
+//                userRepository.insert(new User(-1, "julia", "789"));
+//            }
+//            authService = new AuthServiceJdbcImpl(userRepository);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return;
+//        }
+//
+//        ChatServer chatServer = new ChatServer(authService);
+//        chatServer.start(7777);
+//    }
 
-        ChatServer chatServer = new ChatServer(authService);
-        chatServer.start(3333);
-    }
+//    public ChatServer(AuthService authService) {
+//        this.authService = authService;
+//    }
 
-    public ChatServer(AuthService authService) {
-        this.authService = authService;
-    }
-
-    private void start(int port) {
+    public void start(int port) {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server started!");
             while (true) {

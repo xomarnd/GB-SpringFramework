@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>network-chat</module>
+        <module>spring-mvc</module>
     </modules>
 
 
