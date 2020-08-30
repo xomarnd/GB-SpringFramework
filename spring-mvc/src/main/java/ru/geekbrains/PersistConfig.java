@@ -11,19 +11,19 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:db.properties")
 public class PersistConfig {
 
-    @Value("${database.driver.class}")
-    private String driverClassName;
+    @Value("${jdbc.driver}")
+    private String jdbcDriver;
 
-    @Value("${database.url}")
-    private String databaseUrl;
+    @Value("${jdbc.url}")
+    private String jdbcUrl;
 
-    @Value("${database.username}")
+    @Value("${jdbc.username}")
     private String username;
 
-    @Value("${database.password}")
+    @Value("${jdbc.password}")
     private String password;
 
     @Bean
@@ -34,10 +34,10 @@ public class PersistConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(driverClassName);
+        ds.setDriverClassName(jdbcDriver);
         ds.setUsername(username);
         ds.setPassword(password);
-        ds.setUrl(databaseUrl);
+        ds.setUrl(jdbcUrl);
         return ds;
     }
 }
