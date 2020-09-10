@@ -1,27 +1,27 @@
 package ru.geekbrains.persistance;
 
+
+import java.math.BigDecimal;
+
 public class Product {
 
     private int id;
 
     private String title;
 
-    private String cost;
+    private BigDecimal cost;
 
     public Product() {
     }
 
-    public Product(String title, String cost) {
+    public Product(int id, String title, BigDecimal cost) {
+        this.id = id;
         this.title = title;
         this.cost = cost;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -32,11 +32,11 @@ public class Product {
         this.title = title;
     }
 
-    public String getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 }

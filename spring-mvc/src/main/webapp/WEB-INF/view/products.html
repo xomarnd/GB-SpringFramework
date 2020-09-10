@@ -2,8 +2,8 @@
 <body>
 <h1>Product list</h1>
 
-<a th:href="@{/product/form}">Create product</a>
-
+<a th:href="@{/products/new}">Create product</a>
+<br>
 <table>
     <tr>
         <p>
@@ -15,10 +15,12 @@
 
     <tr th:each="product : ${products}">
        <p>
-        <td th:text="${product.id}"></td>
-        <td th:text="${product.title}">FN </td>
-        <td th:text="${product.cost}">LN </td>
-        </p>
+        <td th:text="${product.id}">id</td>
+        <td th:text="${product.title}">title</td>
+        <td th:text="${product.cost}">price</td>
+        <td><a th:href="@{/products//{id}(id=${product.id})}">edit</a></td>
+        <td><a th:href="@{/products/{id}/del(id=${product.id})}">del</a></td>
+       </p>
     </tr>
 </table>
 
