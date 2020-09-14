@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.geekbrains.persistance.ProductRepository;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -25,10 +24,10 @@ public class PersistConfig {
   @Value("${jdbc.password}")
   private String password;
 
-  @Bean
-  public ProductRepository productRepository(DataSource dataSource) throws SQLException {
-    return new ProductRepository(dataSource);
-  }
+//  @Bean
+//  public ProductRepository productRepository(DataSource dataSource) throws SQLException {
+//    return new ProductRepository(dataSource);
+//  }
 
   @Bean
   public DataSource dataSource() {

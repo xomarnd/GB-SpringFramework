@@ -18,7 +18,7 @@
         <td th:text="${product.id}">id</td>
         <td th:text="${product.title}">title</td>
         <td th:text="${product.cost}">price</td>
-        <td><a th:href="@{/products//{id}(id=${product.id})}">edit</a></td>
+        <td><a th:href="@{/products/{id}(id=${product.id})}">edit</a></td>
         <td><a th:href="@{/products/{id}/del(id=${product.id})}">del</a></td>
        </p>
     </tr>
