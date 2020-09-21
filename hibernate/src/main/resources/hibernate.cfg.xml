@@ -1,0 +1,25 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://10.10.1.7:3306/kek?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <property name="connection.username">kek</property>
+        <property name="connection.password">keker</property>
+        <property name="connection.pool_size">1</property>
+        <property name="current_session_context_class">thread</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.jdbc.batch_size">10</property>
+
+        <mapping class="com.geekbrains.hibernate.Buyer"/>
+        <mapping class="com.geekbrains.hibernate.PurchasesList"/>
+        <mapping class="com.geekbrains.hibernate.Product"/>
+    </session-factory>
+</hibernate-configuration>
