@@ -1,17 +1,17 @@
 package com.geekbrains.july.market.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
-public class Product {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -20,18 +20,20 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
-    private int price;
-
     @ManyToMany
     @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JsonBackReference
+    private List<Product> products;
 
-    public Product(Long id, String title, int price) {
+    public Category(Long id, String title) {
         this.id = id;
         this.title = title;
-        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

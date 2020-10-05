@@ -9,4 +9,9 @@ public class AdditionalController {
     public String aboutPage() {
         return "about";
     }
+
+    @GetMapping("/")
+    public String homepage() {
+        return "index";
+    }
 }

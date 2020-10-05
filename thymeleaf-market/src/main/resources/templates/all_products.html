@@ -13,26 +13,47 @@
 
 <body>
 <div class="container">
-    <div th:replace="~{navigation :: navigation(Market)}" />
+    <div th:replace="~{navigation :: navigation(Market)}"/>
 
     <h2>July Market</h2>
     <h4>Фильтр</h4>
 
     <form th:accept="@{'/products'}" method="get">
         <div class="form-group">
-            <label>Поиск товара по наименованию</label>
-            <input type="text" th:value="${param.product_name != null ? param.product_name : ''}" class="form-control" name="product_name">
+            <label>Название</label>
+            <input th:value="${param.title != null ? param.title : ''}" class="form-control form-control-sm"
+                   name="title">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Минимальная цена</label>
+                <input type="number" th:value="${param.min_price != null ? param.min_price : ''}"
+                       class="form-control form-control-sm" name="min_price">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Максимальная цена</label>
+                <input type="number" th:value="${param.max_price != null ? param.max_price : ''}"
+                       class="form-control form-control-sm" name="max_price">
+            </div>
         </div>
         <div class="form-group">
-            <label>Минимальная цена</label>
-            <input type="number" th:value="${param.min_price != null ? param.min_price : ''}" class="form-control" name="min_price">
-        </div>
-        <div class="form-group">
-            <label>Максимальная цена</label>
-            <input type="number" th:value="${param.max_price != null ? param.max_price : ''}" class="form-control" name="max_price">
+            <label>Категории</label>
+            <div class="form-check" th:each="c : ${@categoriesService.getAllCategories()}">
+                <input type="checkbox"  class="form-check-input" name="categories" th:value="${c.id}">
+<!--                <input type="checkbox"  class="form-check-input" name="categories" th:value="${c.id}" th:unless="${param.categories} == ${c.id}" >-->
+
+
+
+                <label class="form-check-label" th:text="${c.title}"></label>
+<!--                <span th:if="${param.categories == '1'}">1</span>-->
+<!--                <span th:unless="${param.categories == '2'}">2</span>-->
+                <span th:if="${param.categories} ? ${c.id}" th:text="kek"/>
+                <span th:unless="${param.categories} ? ${c.id}" th:text="lol"/>
+
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Применить</button>
-        <a class="btn btn-danger" th:href="@{/products}">Сбросить</a>
+        <a th:href="@{/products}" type="button" class="btn btn-warning">Сброс фильтра</a>
     </form>
 
     <h4>Список товаров:</h4>
@@ -60,11 +81,11 @@
         <ul class="pagination">
             <li class="page-item" th:classappend="${products.isFirst() ? 'disabled' : ''}">
                 <a class="page-link"
-                   th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}" >Назад</a>
+                   th:href="@{'/products/?p='+ ${products.previousOrFirstPageable().getPageNumber() + 1} + ${filterDef}}">Назад</a>
             </li>
 
             <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
-                th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
+                th:each="i : ${#numbers.sequence((products.getNumber() + 1 > 2 ? products.getNumber() - 1 : 1), (products.getNumber() + 3 < products.getTotalPages() ? products.getNumber() + 3 : products.getTotalPages()) )}">
                 <a class="page-link" th:text="${i}" th:href="@{'/products/?p=' + ${i} + ${filterDef}}"></a>
             </li>
 
